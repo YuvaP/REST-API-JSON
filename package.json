@@ -1,0 +1,14 @@
+{
+  "name": "jsonserverrestapi",
+  "version": "1.0.0",
+  "description": "creating fake REST api using json server",
+  "main": "index.js",
+  "scripts": {
+    "json:server": "json-server --watch db.json"
+  },
+  "author": "Yuva",
+  "license": "ISC",
+  "dependencies": {
+    "json-server": "^0.17.0"
+  }
+}

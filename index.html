@@ -1,0 +1,75 @@
+<html>
+    <head>
+        <title>Learning REST API</title>
+    </head>
+    <body>
+
+        <h2><span style="color:blue">Create REST API using JSON Server and random database</span> </h2>
+        
+        <p><span style="font-weight: bold; color: red;">Goal: </span><b>Get the information of the Users with the Company Id "2".</b> 
+            <p><b><span style="text-decoration:underline">How does the app work?</span></b></p>
+            
+            <ul><i><b>
+                <li>Install json-server. "npm install json-server"</li>
+                <li>To run the server: "npm run json:server". json:server is the alias for the cmd.</li>
+                <li>Create fake database of users and configure on package.json file.</li>
+                <li>Use Postman to test REST API.</li>
+                <li>Create REST API for the users/employees.</li>
+                <li>Select any company ID from the given radio buttons.</li>
+                <li>Display the information of the users with that company ID.</li>
+                 
+           </b></i></ul>
+
+        </h4></p><br>
+
+        <p><h3><span style="color:green">Select any Company Id (1-3) from the radio button below and get the user info:</span></h3></p>
+        <input type="radio" id="first" name="compid" onclick="jsonserver(this.value)" value="1"> 
+        <label for="1">1</label><br>
+        <input type="radio" id="second" name="compid" onclick="jsonserver(this.value)" value="2">
+        <label for="2">2</label><br>
+        <input type="radio" id="third" name="compid" onclick="jsonserver(this.value)" value="3">
+        <label for="3">3</label><br>
+         
+       
+        
+        <p id="demo"></p>
+        
+
+       
+        <script>
+           async function jsonserver(selection){
+                let compId=selection;
+                //let compId=document.getElementById("first").value;
+                console.log(compId);
+               
+            //url1="http://localhost:3000/users?age_gte=30&age_lte=40";
+            //const fetch_response1= await fetch(url1);
+            //const json_data1= await fetch_response1.json();
+            //console.log(json_data1);
+            
+            //url2="http://localhost:3000/users?companyId=2";
+            url2=`http://localhost:3000/companies/${compId}/users`;
+            const fetch_response2= await fetch(url2);
+            const json_data2= await fetch_response2.json();
+            
+
+            let employees='';
+            json_data2.forEach((employee)=>{
+                //employees +=employee.id + "</br>" + employee.firstName + "</br>"+employee.lastName + "</br>"+employee.age + "</br>"+employee.companyId + "</br>";
+                employees += `<li>ID: ${employee.id}</li> <li>First Name: ${employee.firstName}</li> <li>Last Name: ${employee.lastName}</li> <li>Age: ${employee.age}</li> <li>Company ID: ${employee.companyId}</li> </br>` ;
+                
+                
+            });
+            document.getElementById("demo").innerHTML=`Users info related to company ID  ${compId} will be displayed below once a company ID is selected:</br></br>${employees}`;
+            //document.getElementById("id").innerHTML=json_data2[0].id;
+            //document.getElementById("fname").innerHTML=json_data2[0].firstName;
+            //document.getElementById("lname").innerHTML=json_data2[0].lastName;
+            //document.getElementById("age").innerHTML=json_data2[0].age;
+            //document.getElementById("compid").innerHTML=json_data2[0].companyId;
+           }         
+
+           jsonserver();
+           
+        </script>
+    </body>
+</html>
